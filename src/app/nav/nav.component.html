@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        Schematix
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a routerLink="/Dashboard" routerLinkActive="active" class="nav-link">
+                <i class="fa-solid fa-gauge"></i><span>Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/Shifts" routerLinkActive="active" class="nav-link ">
+                <i class="fa-regular fa-clock"></i><span>Shifts</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/Branches" routerLinkActive="active" routerLinkActive="active" class="nav-link">
+                <i class="fa-regular fa-building"></i><span style="margin-left: -2px;">Branches</span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a routerLink="/Employees" routerLinkActive="active" class="nav-link">
+                <i class="fa-regular fa-user"></i><span>Employees</span>
+            </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <app-sidebar></app-sidebar>

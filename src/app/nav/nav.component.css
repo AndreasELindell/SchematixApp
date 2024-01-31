@@ -1,0 +1,68 @@
+.navbar{
+    background-image: linear-gradient(to right, rgb(43, 116, 253), rgb(0, 199, 199) 90%);
+    padding: 0;
+    padding-block: 10px;
+    padding-left: 0;
+    display: none;
+}
+span{
+    padding-left: 1rem;
+}
+i{
+    width: 1.5rem;
+}
+.fa-building{
+    margin-left: 2px;
+}
+.navbar-toggler{
+    margin-right: 1rem;
+}
+.container-fluid{
+    height: 100%;
+    padding-inline: 0;
+}
+.navbar-brand{
+    color: white;
+    font-size: larger;
+    font-weight: bolder;
+    margin-right: 5%;
+    margin-left: 1rem;
+}
+#navbarSupportedContent{
+    padding: 0;
+}
+.nav-item{
+    height: 100%;
+    font-weight: 500;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items:flex-end;
+    font-size: large;
+    width: 100%;
+}
+.nav-link{
+    color: white;
+    margin-left: 1rem;
+}
+.nav-item.active{
+
+    background-color: white;
+    .nav-link{
+        color: rgb(43, 116, 253);
+    }
+}
+.navbar-nav{
+    margin-top: 1rem;
+    width: 100%;
+}
+@media(max-width: 991px)
+{
+    .navbar{
+        display: block;
+    } 
+    app-sidebar{
+        display: block;
+        height: 0;
+    }
+}

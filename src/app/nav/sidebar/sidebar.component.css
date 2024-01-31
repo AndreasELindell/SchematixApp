@@ -1,0 +1,87 @@
+.sidebar{
+   height: 100vh;
+   width: 100%;
+   box-shadow: 1px 1px 5px lightgrey;
+   flex-direction: column;
+   justify-content: flex-start;
+   justify-content: space-between;
+   align-items: center;
+   overflow: hidden;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.logo{
+    height: 15vh;
+}
+h1{
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 7px;
+}
+i{
+    margin-right: 1rem;
+    width: 24px;
+}
+.fa-building{
+    padding-left: 2px;
+}
+.links{
+    height: 40%;
+    width: auto;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-bottom: auto;
+    
+}
+.link{
+    font-size: larger;
+    padding: 12px;
+    padding-inline: 50px;
+    color: gray;
+}
+.link.active{
+    border-radius: 10px;
+    color: white;
+    background-image: linear-gradient(to right, rgb(43, 116, 253), rgb(0, 199, 199) 110%);
+}
+.profile{
+    background-image: linear-gradient(to right, #2b74fd, rgb(0, 199, 199) 110%);
+    border-radius: 15px;
+    padding: 1rem;
+    height: 14.5rem;
+    width: 232px;
+    margin-bottom: 2rem;
+}
+.profileImage{
+    border-radius: 15px;
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+}
+.profileInfo{
+    width: auto;
+    flex-direction: column;
+}
+.ProfileLogout{
+    margin-top: 10%;
+}
+#logout{
+    border-radius: 10px;
+
+    padding: 1rem;
+    padding-right: 5rem;
+}
+@media (max-width: 991px){
+    .sidebar{
+        height: 0;
+        display: none;
+    }
+    .sidebar > *{
+        display: none;
+    }
+    .link{
+        display: none;
+    }
+}
