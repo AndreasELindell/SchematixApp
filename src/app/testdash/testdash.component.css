@@ -2,7 +2,7 @@
     height: 100vh;
     background-color: var(--darkgreen);
 }
-.section2{
+.section1, .section2, .section3{
     width: 100%;
 }
 .title{
@@ -31,10 +31,11 @@
     background-color: var(--sidebar);
 }
 .card-text{
-    padding: 1rem;
     box-shadow: 0 2px 2px -2px gray;
 }
-
+.card-text{
+    padding: 1rem;
+}
 .card-body{
     max-height: 11rem;
     padding: 0;
@@ -77,16 +78,8 @@ button{
     display: flex;
     justify-content: center;
 }
-.spinner{
-    width: 100%;
-    height: 15rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.spinner-border{
-    height: 5rem;
-    width: 5rem;
+.happenings{
+    justify-content: space-between;
 }
 .shifts > *{
     display: flex;
@@ -94,12 +87,9 @@ button{
     min-height: 3rem;
     border-right: 1px solid lightgray;
 }
-.shifts > .col{
-    min-width: 10rem;
-} 
-.shifts > .col-2{
-    min-width: 10rem;
-}   
+#happenings{
+    max-height: 4rem;
+}
 .shiftblock{
     background-color: var(--green);
     display: flex;
@@ -113,15 +103,14 @@ button{
 }
 .shiftblocktop{
     font-weight: bold;
-    font-size: large;
-    min-height: 1.5rem;
+    height: 1.5rem;
     border-radius: 5px 5px 0 0;
     background-color: var(--darkgreen);
     color: white;
 }
 .shiftblockbody{
-    min-height: 2.5rem;
+    min-height: 2rem;
     color: white;
     font-weight: 400;
-    font-size: small;
 }
+

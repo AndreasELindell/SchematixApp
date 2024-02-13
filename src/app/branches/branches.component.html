@@ -1,42 +1,54 @@
-<div class="Branches">
-    <div class="container-fluid main">
-        <div class="middle">
-                <h4 class="pagetitle">
-                    <strong>
-                        Branches
-                    </strong>
-                </h4>
-            <div class="row">
-                <div class="col-4 branch">
-                    <div class="card">
-                        <h4 class="card-title branchname">
-                            Branch Name
-                        </h4>
-                        <div class="card-body">
-                            <div class="card-text">
-                                <i class="fa-solid fa-user"></i> 
-                                Branch Manager Name
-                            </div>
-                            <div class="card-text">
-                                <i class="fa-solid fa-envelope"></i>
-                                 Branch Manager Email
-                            </div>
-                            <div class="card-text">
-                                <i class="fa-solid fa-phone"></i> 
-                                Branch Manager Phonenumber
-                            </div>
+<div class="fluid">
+    <div class="row row-cols-2 section1">
+        <div class="col-12">
+            <h4 class="title">
+                Branches
+            </h4>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3">
+                           <b>Branch Name</b> 
                         </div>
-                        <div class="card-footer">
-                            <a href=""><i class="fa-solid fa-circle-info fa-xl"></i></a>
-                            <a href=""><i class="fa-solid fa-pen-to-square fa-xl"></i></a>
+                        <div class="col-3">
+                           <b>Manager</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Email</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Phonenumber</b> 
                         </div>
                     </div>
-                    <div class="row location">
-
+                  </div>
+                <div class="card-body d-flex flex-nowrap overflow-auto">
+                    <div *ngIf="show == false" class="spinner">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
-                    
+                    <ng-container *ngIf="show">
+                        <div *ngFor="let branch of Branches" class="card-text">
+                            <div class="row card-row">
+                                <div class="col-3">
+                                   <b>{{branch.name}}</b> 
+                                </div>
+                                <div class="col-3">
+                                    {{branch.manager.userName}}
+                                </div>
+                                <div class="col-3">
+                                    {{branch.manager.email}}
+                                </div>
+                                <div *ngIf="branch.manager.phoneNumber != null" class="col-3">
+                                    {{branch.manager.phoneNumber}}
+                                </div>
+                                <div *ngIf="branch.manager.phoneNumber == null" class="col-3">
+                                    Not available
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-                
             </div>
         </div>
     </div>

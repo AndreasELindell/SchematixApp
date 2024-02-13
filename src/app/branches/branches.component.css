@@ -1,95 +1,53 @@
-.Branches{
-    background-color: rgb(252, 250, 250);
-    width: 100%;
+.fluid{
     height: 100vh;
-    overflow: hidden;
+    background-color: var(--darkgreen);
 }
-.pagetitle{
-    color: gray;
-    padding: 1rem;
+.section1, .section2, .section3{
+    width: 100%;
 }
-a{
+.title{
+    border-left: 4px solid var(--green);
+    padding: 0.5rem;
     color: white;
-    text-decoration: none;
-}
-.main{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    margin: 0;
-    padding: 1rem;
-    justify-content: space-around;
-}
-.middle{
-    box-shadow: 1px 1px 5px rgb(190, 190, 190);
-    padding: auto;
-    background-color: white;
-    border-radius: 10px;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-.middle > .row{
-
-    padding: 1rem;
-    width: auto;
-    height: 20%;
-}
-.branchname{
-    padding: 1rem;
+    margin-bottom: 1rem;
 }
 .card{
-    width: 20%;
-    min-width: 20rem;
-    box-shadow: 1px 1px 5px rgb(190, 190, 190);
     border: 0;
-    color: white;
-    background-color:  #8faadc;
+    border-radius: 10px;
+    background-color: var(--darkestgreen);
 }
-.card-body{
+.col-12{
+    padding: 1rem;
+    padding-left: 2rem;
+}
+.col-2{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+}
+.card-header{
+    padding-top: 0.5rem;
+    color: white;
+    background-color: var(--sidebar);
 }
 .card-text{
-    padding-top: 2%;
+    padding: 1rem;
+    box-shadow: 0 2px 2px -2px gray;
 }
-.card-footer{
-    align-items: center;
-    background-color: #1e5488;
+.card-body{
+    max-height: 11rem;
+    padding: 0;
+    color: #6bb1dd;
+    flex-direction: column;
+}
+.spinner{
+    width: 100%;
+    height: 15rem;
     display: flex;
-    justify-content: space-between;
-}
-.col-4 > .row{
+    justify-content: center;
     align-items: center;
-    height: 45%;
-    padding-left: 1rem;
 }
-.fa-user{
-    padding-left: 0;
+.spinner-border{
+    height: 5rem;
+    width: 5rem;
 }
-.fa-xl{
-    padding-right: 1rem;
-    display: flex;
-    align-items: center;
-    height: 1.5rem;
-    width: 1.5rem;
-}
-i{
-    width: 1rem;
-}
-::-webkit-scrollbar {
-    width: 20px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(184, 184, 184);
-    border-radius: 10px;
-  }

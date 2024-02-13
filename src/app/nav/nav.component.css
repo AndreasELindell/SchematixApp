@@ -1,9 +1,13 @@
 .navbar{
-    background-image: linear-gradient(to right, rgb(43, 116, 253), rgb(0, 199, 199) 90%);
+    background-color: var(--sidebar);
     padding: 0;
     padding-block: 10px;
     padding-left: 0;
     display: none;
+}
+#logoImg{
+    padding-left: 1rem;
+    height: 4rem;
 }
 span{
     padding-left: 1rem;
@@ -15,6 +19,8 @@ i{
     margin-left: 2px;
 }
 .navbar-toggler{
+    height: 3rem;
+    background-color: var(--green);
     margin-right: 1rem;
 }
 .container-fluid{

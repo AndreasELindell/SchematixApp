@@ -1,7 +1,7 @@
 .sidebar{
-   height: 100vh;
+   height: 100dvh;
    width: 100%;
-   box-shadow: 1px 1px 5px lightgrey;
+   background-color: var(--sidebar);
    flex-direction: column;
    justify-content: flex-start;
    justify-content: space-between;
@@ -13,7 +13,10 @@ a{
     color: black;
 }
 .logo{
-    height: 15vh;
+    height: 25%;
+}
+#logoImg{
+    width: 100%;
 }
 h1{
     margin-top: 1rem;
@@ -36,18 +39,23 @@ i{
     
 }
 .link{
+    border-radius: 10px;
     font-size: larger;
     padding: 12px;
     padding-inline: 50px;
-    color: gray;
+    color: white;
+    transition: all 0.3s;
+}
+.link:not(.active):hover{
+    opacity: 0.5;
+    background-color: var(--darkestgreen);
 }
 .link.active{
-    border-radius: 10px;
     color: white;
-    background-image: linear-gradient(to right, rgb(43, 116, 253), rgb(0, 199, 199) 110%);
+    background-color: #111a2081;
+
 }
 .profile{
-    background-image: linear-gradient(to right, #2b74fd, rgb(0, 199, 199) 110%);
     border-radius: 15px;
     padding: 1rem;
     height: 14.5rem;

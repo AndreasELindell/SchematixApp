@@ -1,202 +1,364 @@
-<div class="Dashboard">
-    <div class="main">
-        <div class="top">
-            <div class="col-5">
-                <h4 class="pagetitle"> 
-                    <strong>
-                        Dashboard
-                    </strong>
+<div class="fluid">
+    <div class="row row-cols-2 section1">
+        <div class="col-xxl-6 col-12">
+            <div class="titleandfilter">
+                <h4 class="title">
+                    Branches
                 </h4>
-                <div class="d-flex flex-nowrap overflow-auto" id="Branches">
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Corprate</h5>
-                            <p class="card-text">Manager Name</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>   
-                            </div>
-                        </div>
-                    </div>
+                <div class="filter">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
+                        <input type="text" [(ngModel)]="searchBranch" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      </div>
                 </div>
             </div>
-            <div class="col-5">
-                <h4 class="pagetitle">
-                    <strong>
-                        Employees
-                    </strong>
-                </h4>
-                <div class="d-flex flex-nowrap overflow-auto" id="Branches">
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Corprate</h5>
-                            <p class="card-text">Manager Name</p>
-                            </div>
-                            
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3">
+                           <b>Branch Name</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Manager</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Email</b> 
+                        </div>
+                        <div class="col-2">
+                           <b>Phonenumber</b> 
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>
+                  </div>
+                <div class="card-body d-flex flex-nowrap overflow-auto">
+                    <div *ngFor="let branch of Branches | filter: searchBranch" class="card-text">
+                        <div class="row card-row">
+                            <div class="col-3">
+                               <b>{{branch.name}}</b> 
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>
+                            <div class="col-3">
+                                {{branch.manager.userName}}
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>   
+                            <div class="col-3">
+                                {{branch.manager.email}}
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Manager Name</p>   
+                            <div *ngIf="branch.manager.phoneNumber != null" class="col-2">
+                                {{branch.manager.phoneNumber}}
+                            </div>
+                            <div *ngIf="branch.manager.phoneNumber == null" class="col-2">
+                                Not available
+                            </div>
+                            <div class="col">
+                                <a routerLink="/Branches">
+                                    <i class="fa-solid fa-info fa-sm"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row middle">
-            <div class="col-10">
-                <h4 class="pagetitle">
-                    <strong>
-                        Shifts
-                    </strong>
+        <div class="col-xxl-6 col-12">
+            <div class="titleandfilter">
+                <h4 class="title">
+                    Employees
                 </h4>
-                <div class="container-fluid d-flex flex-nowrap overflow-auto">
-                    <div class="weekdays d-flex flex-nowrap">
+                <div class="filter">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
+                        <input type="text" [(ngModel)]="searchEmployee" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3">
+                           <b>Branch Name</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Manager</b> 
+                        </div>
+                        <div class="col-3">
+                           <b>Email</b> 
+                        </div>
                         <div class="col-2">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-text">
-                                    07:00-15:00 Task name
-                                    </div>
-                                    
+                           <b>Phonenumber</b> 
+                        </div>
+                    </div>
+                  </div>
+                <div class="card-body d-flex flex-nowrap overflow-auto">
+                    <div *ngFor="let employee of Employees | filter: searchEmployee" class="card-text">
+                        <div class="row">
+                            <div class="col-3">
+                               <b>{{employee.userName}}</b> 
+                            </div>
+                            <div class="col-3">
+                               Manager
+                            </div>
+                            <div class="col-3">
+                                {{employee.email}}
+                            </div>
+                            <div *ngIf="employee.phoneNumber != null" class="col-2">
+                                {{employee.phoneNumber}}
+                            </div>
+                            <div *ngIf="employee.phoneNumber == null" class="col-2">
+                                Not available
+                            </div>
+                            <div class="col">
+                                <a routerLink="/Employees">
+                                    <i class="fa-solid fa-info fa-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row section2">
+        <div class="col-12">
+            <h4 class="title">
+                Shifts
+            </h4>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn" (click)="changeWeek(-1)">
+                                <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
+                            </button>
+                            <button disabled id="week"><b>Week {{Week}}</b></button>
+                            <button type="button" class="btn" (click)="changeWeek(1)">
+                                <i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row weekdays">
+                        <div class="col-2">
+                           <b>Employee Name</b> 
+                        </div>
+                        <div class="col">
+                            <b>Monday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Tuesday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Wednesday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Thursday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Friday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Saturday</b> 
+                        </div>
+                        <div class="col">
+                            <b>Sunday</b> 
+                        </div>
+                    </div>
+                  </div>
+                <div class="card-body d-flex flex-nowrap overflow-auto" id="shifts">
+                    <div *ngIf="show == false" class="spinner">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let es of EmployeeWithShifts">
+                    <div *ngIf="es.shifts.length > 0 && show == true" class="card-text">
+                        <div class="row shifts">
+                            <div class="col-2">
+                                <div class="col-4">
+                                    <img src="../../assets/Images/DefaultUserImage.png" alt="userImage" id="userImage">
+                                </div>
+                                <div class="col-8">
+                                    <b>{{es.employee.userName}}</b>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-2">
-                        Monday
-                        </div>
-                        <div class="col-2 ">
-                        Tuesday
-                        </div>
-                        <div class="col-2 ">
-                        Wednesday
-                        </div>
-                        <div class="col-2">
-                        Thursday
-                        </div>
-                        <div class="col-2 ">
-                        Friday
-                        </div>
-                        <div class="col-2 ">
-                        Saturday
-                        </div>
-                        <div class="col-2 ">
-                        Sunday
+                            <ng-container *ngFor="let shift of es.shifts">
+                                <div *ngIf="shift.date == WeekDates[0]; else elseBlock" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+                                            {{shift.start}} {{shift.end}}
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift.date == WeekDates[1]; else elseBlock1" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+    
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock1>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift.date == WeekDates[2]; else elseBlock2" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+    
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock2>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift.date == WeekDates[3]; else elseBlock3" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+                                            hmm
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock3>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift?.date == WeekDates[4]; else elseBlock4" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+                                            {{shift.start.slice(0,-3)}} - {{shift.end.slice(0,-3)}}
+                                        </div>
+                                        <div *ngFor="let task of shift.tasks" class="shiftblockbody">
+                                            {{task.type}}: {{task.start.slice(0,-3)}} - {{task.end.slice(0,-3)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock4>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift.date == WeekDates[5]; else elseBlock5" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+    
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock5>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="shift.date == WeekDates[6]; else elseBlock6" class="col">
+                                    <div class="shiftblock">
+                                        <div class="shiftblocktop">
+    
+                                        </div>
+                                        <div class="shiftblockbody">
+                                            yo
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock6>
+                                    <div class="col">
+                                        <b>No Shift</b> 
+                                    </div>
+                                </ng-template>
+                            </ng-container>
                         </div>
                     </div>
+                </ng-container>
                 </div>
             </div>
         </div>
-        <div class="row bottom">
-            <div class="col-10">
-                <h4 class="pagetitle">
-                    <strong>
-                        Happenings
-                    </strong>
-                </h4>
-                <div class="d-flex flex-nowrap overflow-auto" id="Branches">
-                    <div class="col-1">
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Event</h5>
-                            <p class="card-text">what is happening</p>
-                            <p class="card-text">Date</p>
+    </div>
+    <div class="row section3">
+        <div class="col-12">
+            <h4 class="title">
+                Happenings
+            </h4>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row happenings">
+                        <div class="col-3">
+                           <b>Happening</b> 
+                        </div>
+                        <div class="col-3">
+                            <b>Type</b> 
+                        </div>
+                        <div class="col-3">
+                            <b>Time</b> 
+                        </div>
+                        <div class="col-3">
+                            <b>Location</b> 
+                        </div>
+                    </div>
+                  </div>
+                <div class="card-body d-flex flex-nowrap overflow-auto" id="happenings">
+                    <div class="card-text">
+                        <div class="row happenings">
+                            <div class="col-3">
+                               <b>Happening</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Type</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Time</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Location</b> 
                             </div>
                         </div>
                     </div>
-                    <div class="col-1">
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Event</h5>
-                            <p class="card-text">what is happening</p>
-                            <p class="card-text">Date</p>
+                    <div class="card-text">
+                        <div class="row happenings">
+                            <div class="col-3">
+                               <b>Happening</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Type</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Time</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Location</b> 
                             </div>
                         </div>
                     </div>
-                    <div class="col-1">
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Event</h5>
-                            <p class="card-text">what is happening</p>
-                            <p class="card-text">Date</p>
+                    <div class="card-text">
+                        <div class="row happenings">
+                            <div class="col-3">
+                               <b>Happening</b> 
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Event</h5>
-                            <p class="card-text">what is happening</p>
-                            <p class="card-text">Date</p>
+                            <div class="col-3">
+                                <b>Type</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Time</b> 
+                            </div>
+                            <div class="col-3">
+                                <b>Location</b> 
                             </div>
                         </div>
                     </div>

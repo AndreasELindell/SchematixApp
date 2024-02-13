@@ -1,5 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
-app-root{
-    display: block;
-    height: 0;
+body {
+    position: absolute;
+    top: 0;
+    min-height: 100dvh;
+    width: 100%;
+
+  }
+:root {
+
+    --green: #6bb1dd;
+    --darkgreen: #232b38;
+    --darkestgreen: #111a20;
+    --sidebar: #2b485a;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--green); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--darkestgreen); 
 }
