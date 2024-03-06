@@ -9,7 +9,7 @@
                     <select class="form-select" [ngModel]="FilteredBranch">
                         <option *ngFor="let branch of Branches" [ngValue]=branch>{{branch.name}}</option>
                     </select>
-                    <button class="btn newbuttonclass">
+                    <button class="btn newbuttonclass"> 
                         Search
                     </button>
                 </div>
@@ -17,7 +17,7 @@
 
                 </div>
                 <div class="col-2 d-flex justify-content-end">
-                    <button class="btn newbuttonclass">
+                    <button class="btn newbuttonclass" type="button" data-bs-target="#AddShiftModal" data-bs-toggle="modal" >
                         Add Shift
                     </button>
                 </div>
@@ -26,11 +26,11 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-center">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn" (click)="changeWeek(-1)">
+                            <button type="button" class="btn weekbtn" (click)="changeWeek(-1)">
                                 <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
                             </button>
-                            <button disabled id="week"><b>Week {{Week}}</b></button>
-                            <button type="button" class="btn" (click)="changeWeek(1)">
+                            <button disabled id="week" ><b>Week {{Week}}</b></button>
+                            <button type="button" class="btn weekbtn" (click)="changeWeek(1)">
                                 <i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i>
                             </button>
                         </div>
@@ -190,6 +190,25 @@
                     </div>
                 </ng-container>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddShiftModal" aria-labelledby="AddShiftModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Add Shift</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+                <button class="btn newbuttonclass" >
+                    Save Changes
+                </button>
             </div>
         </div>
     </div>

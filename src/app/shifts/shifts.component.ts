@@ -56,7 +56,10 @@ export class ShiftsComponent implements OnInit{
       error: (e) => console.log(e)
     })
   }
-
+  getFilterBranch(): void 
+  {
+    this.apiService.
+  }
   getWeekNumber(date: Date): number {
     date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));

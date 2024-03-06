@@ -48,8 +48,6 @@
     border: 0;
     padding: 0;
     width: 5rem;
-}
-button{
     height: 2.5rem;
     background-color: var(--darkestgreen);
     color: white;
@@ -60,10 +58,11 @@ button{
 #userImage{
     height: 3rem;
 }
-.btn{
+.weekbtn{
+    background-color: var(--darkestgreen);
     width: 3rem;
 }
-.btn:hover{
+.weekbtn:hover{
     background-color:#6bb1dd;
 }
 .newbuttonclass{
@@ -134,3 +133,23 @@ button{
     font-weight: 400;
     font-size: small;
 }
+.modal-content{
+    width: 25rem;
+    background-color: transparent;
+}
+.modal-content> *{
+    border: 0;
+    color: white;
+}
+.modal-header{
+    background-color: var(--sidebar);
+}
+.modal-body{
+    display: flex;
+    justify-content: center;
+    background-color: var(--darkestgreen);
+    flex-direction: column;
+}
+.modal-footer{
+    background-color: var(--darkestgreen);
+}  

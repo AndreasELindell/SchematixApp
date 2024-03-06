@@ -52,7 +52,7 @@
                                     Not available
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-primary"data-bs-target="#exampleModalToggle" data-bs-toggle="modal" (click)="onInspectBranch(branch)">
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" (click)="onInspectBranch(branch)">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </div>
@@ -229,7 +229,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" (click)="onUpdateManager(Branch)">
+                <button class="btn" data-bs-dismiss="modal" aria-label="Close" (click)="onUpdateManager(Branch)">
                     Save Changes
                 </button>
             </div>

@@ -30,9 +30,13 @@ export class ApiService {
   {
     return this.http.get<Branch[]>(this.baseUrl + "/Branch/noEmp");
   }
-  GetShifts(): Observable<Shift[]>
+  GetShifts(week: number): Observable<Shift[]>
   {
-    return this.http.get<Shift[]>(this.baseUrl + "/Shift/branch/3");
+    return this.http.get<Shift[]>(this.baseUrl + `/Shift/?week=${week}`);
+  }
+  GetShiftsForBranch(week: number, branch: Branch): Observable<Shift[]>
+  {
+    return this.http.get<Shift[]>(this.baseUrl + `/Shift/`)
   }
   PatchEmployee(employee: Employee): Observable<Employee>
   {
