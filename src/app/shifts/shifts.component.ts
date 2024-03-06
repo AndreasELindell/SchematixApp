@@ -3,6 +3,7 @@ import { Branch } from 'src/Models/Branch';
 import { Employee } from 'src/Models/Employee';
 import { EmployeeWithShifts } from 'src/Models/EmployeeWithShifts';
 import { ApiService } from '../services/api.service';
+import { Shift } from 'src/Models/Shift';
 
 @Component({
   selector: 'app-shifts',
@@ -11,16 +12,19 @@ import { ApiService } from '../services/api.service';
 })
 export class ShiftsComponent implements OnInit{
 
+  Branches: Branch[] = []
+  FilteredBranch!: Branch;
   Week!: number;
   Year = new Date().getFullYear();
   EmployeeWithShifts: EmployeeWithShifts[] =[];
   WeekDates: any;
   show = false;
-
+  NewShift!: Shift;
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.Week = this.getWeekNumber(new Date());
+    this.getBranches()
     this.apiService.GetEmployeesWithShifts(this.Week).subscribe({
       next: (r) => this.EmployeeWithShifts = r,
       error: (e) => console.log(e),
@@ -44,6 +48,15 @@ export class ShiftsComponent implements OnInit{
       this.show = true;
     }, 1000);
   }
+
+  getBranches(): void
+  {
+    this.apiService.GetBranchesWithoutEmployees().subscribe({
+      next: (r) => this.Branches = r,
+      error: (e) => console.log(e)
+    })
+  }
+
   getWeekNumber(date: Date): number {
     date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));

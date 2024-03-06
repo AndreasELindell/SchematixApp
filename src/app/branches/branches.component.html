@@ -4,6 +4,12 @@
             <h4 class="title">
                 Branches
             </h4>
+            <div class="filter">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
+                    <input type="text" [(ngModel)]="searchBranch" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <div class="row">
@@ -16,7 +22,7 @@
                         <div class="col-3">
                            <b>Email</b> 
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                            <b>Phonenumber</b> 
                         </div>
                     </div>
@@ -28,22 +34,27 @@
                         </div>
                     </div>
                     <ng-container *ngIf="show">
-                        <div *ngFor="let branch of Branches" class="card-text">
+                        <div *ngFor="let branch of Branches | filter: searchBranch" class="card-text">
                             <div class="row card-row">
                                 <div class="col-3">
                                    <b>{{branch.name}}</b> 
                                 </div>
                                 <div class="col-3">
-                                    {{branch.manager.userName}}
+                                    {{branch.manager.userName?.replace(".", " ")}}
                                 </div>
                                 <div class="col-3">
                                     {{branch.manager.email}}
                                 </div>
-                                <div *ngIf="branch.manager.phoneNumber != null" class="col-3">
+                                <div *ngIf="branch.manager.phoneNumber != null" class="col-2">
                                     {{branch.manager.phoneNumber}}
                                 </div>
-                                <div *ngIf="branch.manager.phoneNumber == null" class="col-3">
+                                <div *ngIf="branch.manager.phoneNumber == null" class="col-2">
                                     Not available
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary"data-bs-target="#exampleModalToggle" data-bs-toggle="modal" (click)="onInspectBranch(branch)">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -53,3 +64,176 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Employee Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Branch Id</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [(ngModel)]="Branch.id" name="userName" class="form-control disabled" id="userName">
+                  </div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Branch Name</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="email" [(ngModel)]="Branch.name" name="Email" class="form-control disabled" id="Email" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="Phonenumber" class="form-label">Branch Manager</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [value]="Branch.manager?.userName" name="Phonenumber" class="form-control disabled" id="Phonenumber">
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Branch Employees</label>
+                    <ul class="list-group">
+                        <ng-container *ngFor="let employee of Branch.employees">
+                            <li class="list-group-item">{{employee.userName.replace(".", " ")}} - {{employee.roles[0]}}</li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Edit Branch</button>
+          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-labelledby="exampleModalToggleLabel2" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Edit Branch</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="btn-group-vertical">
+                <div class="mb-3">
+                    <button class="btn" data-bs-target="#AddEmployeeModal" data-bs-toggle="modal" (click)="onLoadEmployees()">Add Employee To branch</button>
+                </div>
+                <div class="mb-3">
+                    <button class="btn" data-bs-target="#RemoveEmployeeModal" data-bs-toggle="modal">Remove Employee from branch</button>
+                </div>
+                <div class="mb-3">
+                    <button class="btn" data-bs-target="#EditManagerModal" data-bs-toggle="modal" (click)="onInspectEditManager()">Change Manager of Branch</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-bs-dismiss="modal" aria-label="Close">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="modal fade modal-lg" id="AddEmployeeModal" aria-labelledby="AddEmployeeModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Add Employee to Branch</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gy-3">
+                    <ng-container *ngFor="let employee of EmployeesNotAdded">
+                        <div class="col-3">
+                        <b>{{employee.userName?.replace(".", " ")}}</b> 
+                        </div>
+                        <div class="col-3">
+                            {{employee.email}}  
+                        </div>
+                        <div class="col-3">
+                            {{employee.roles[0]}}
+                        </div>
+                        <div class="col-3">
+                            <button class="btn" (click)="addEmployeeToList(employee)">Add Employee</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="modal-footer" >
+                <div class="row gy-3" style="border-top: 1px solid white;">
+                    <ng-container *ngFor="let employee of EmployeesToAdd">
+                        <div class="col-3">
+                            <b>{{employee.userName?.replace(".", " ")}}</b> 
+                        </div>
+                        <div class="col-3">
+                            {{employee.email}}  
+                        </div>
+                        <div class="col-3">
+                            {{employee.roles[0]}}
+                        </div>
+                        <div class="col-3">
+                            <button class="btn" (click)="removeEmployeeFromList(employee)">Remove Employee</button>
+                        </div>
+                    </ng-container>
+                 </div>
+                 <div class="row">
+                    <button class="btn modal-btn" data-bs-dismiss="modal" aria-label="Close" (click)="onAddEmployeesToBranch()" *ngIf="EmployeesToAdd.length > 0">
+                        Save Changes
+                    </button>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RemoveEmployeeModal" aria-labelledby="RemoveEmployeeModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Remove Employee from Branch</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <div class="row gy-3">
+                    <ng-container *ngFor="let employee of Branch.employees">
+                        <div class="col-3">
+                        <b>{{employee.userName?.replace(".", " ")}}</b> 
+                        </div>
+                        <div class="col-3">
+                            {{employee.email}}  
+                        </div>
+                        <div class="col-3">
+                            {{employee.roles[0]}}
+                        </div>
+                        <div class="col-3">
+                            <button class="btn" (click)="onRemoveEmployeeFromBranch(employee)">Remove</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditManagerModal" aria-labelledby="EditManagerModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Edit Branch Manager</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="manager" class="form-label">Current Branch Manager</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [value]="Branch.manager?.userName" name="manager" class="form-control disabled" id="Phonenumber">
+                </div>
+                <div class="mb-3">
+                    <label for="newmanager" class="form-label">New Branch Manager</label>
+                    <select class="form-select" name="newmanager" [(ngModel)]="Branch.manager">
+                        <option *ngFor="let manager of Managers" [ngValue]="manager">{{manager.userName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" (click)="onUpdateManager(Branch)">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

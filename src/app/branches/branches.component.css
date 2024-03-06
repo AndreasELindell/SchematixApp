@@ -5,7 +5,46 @@
 .section1, .section2, .section3{
     width: 100%;
 }
+.titleandfilter{
+    display: flex;
+    justify-content: space-between;
+}
+a{
+    text-decoration: none;
+    color: var(--green);
+}
+.disabled{
+    color: white;
+    border: none;
+    background-color: var(--sidebar);
+}
+.btn{
+    border: none;
+    color: white;
+    background-color: var(--green);
+}
+.btn:hover{
+    background-color: var(--sidebar);
+}
+
+.input-group > *{
+    border: 1px solid var(--sidebar);
+}
+.form-control:focus{
+    box-shadow: 0px 0px 0px 2px var(--green);
+}
+.input-group-text{
+    color: white;
+    background-color: var(--sidebar);
+}
+.filter{
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 .title{
+    width: 25%;
     border-left: 4px solid var(--green);
     padding: 0.5rem;
     color: white;
@@ -35,7 +74,7 @@
     box-shadow: 0 2px 2px -2px gray;
 }
 .card-body{
-    max-height: 11rem;
+    max-height: 80vh;
     padding: 0;
     color: #6bb1dd;
     flex-direction: column;
@@ -50,4 +89,57 @@
 .spinner-border{
     height: 5rem;
     width: 5rem;
+}
+.modal-content{
+    width: 25rem;
+    background-color: transparent;
+}
+.modal-content> *{
+    border: 0;
+    color: white;
+}
+.modal-header{
+    background-color: var(--sidebar);
+}
+.modal-body{
+    display: flex;
+    justify-content: center;
+    background-color: var(--darkestgreen);
+    flex-direction: column;
+}
+.modal-footer{
+    background-color: var(--darkestgreen);
+}  
+.modalrow{
+    width: 100%;
+} 
+.input-group > *{
+    border: 1px solid var(--sidebar);
+}
+.form-control:focus{
+    box-shadow: 0px 0px 0px 2px var(--green);
+}
+.input-group-text{
+    color: white;
+    background-color: var(--sidebar);
+}
+.list-group-item{
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: var(--sidebar);
+    color: white;
+}
+.list-group-item:last-child{
+    border: none;
+}
+.modal-content{
+    width: 80%;
+    min-height: 50%;
+}
+.modal-lg > .modal-content > .modal-footer
+{
+    display: block;
+}
+.modal-btn{
+    width: 10rem;
 }

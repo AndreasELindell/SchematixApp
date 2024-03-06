@@ -4,18 +4,28 @@
             <h4 class="title">
                 Employees
             </h4>
+            <div class="filter col">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
+                    <input type="text" [(ngModel)]="searchEmployee" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <button class="btn btn-success" (click)="onInspectAddEmployee()" data-bs-target="#AddEmployeeModal" data-bs-toggle="modal"> Add Employee</button>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-3">
-                           <b>Branch Name</b> 
+                           <b>Employees Name</b> 
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                            <b>Salary</b> 
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                            <b>Email</b> 
                         </div>
+                        <div class="col-2">
+                          <b>Role</b> 
+                       </div>
                         <div class="col-3">
                            <b>Phonenumber</b> 
                         </div>
@@ -28,22 +38,30 @@
                         </div>
                     </div>
                     <ng-container *ngIf="show">
-                        <div *ngFor="let employee of Employees" class="card-text">
+                        <div *ngFor="let employee of Employees | filteremployee: searchEmployee" class="card-text">
                             <div class="row">
                                 <div class="col-3">
-                                   <b>{{employee.userName}}</b> 
+                                   <b>{{employee.userName?.replace(".", " ")}}</b> 
                                 </div>
-                                <div class="col-3">
-                                   {{employee.salary}}
+                                <div class="col-2">
+                                   {{employee.salary | currency:"$"}}
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     {{employee.email}}
                                 </div>
-                                <div *ngIf="employee.phoneNumber != null" class="col-3">
+                                <div class="col-2">
+                                  {{employee.roles[0]}}
+                              </div>
+                                <div *ngIf="employee.phoneNumber != null" class="col-2">
                                     {{employee.phoneNumber}}
                                 </div>
-                                <div *ngIf="employee.phoneNumber == null" class="col-3">
+                                <div *ngIf="employee.phoneNumber == null" class="col-2">
                                     Not available
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary" (click)="onInspectEmployee(employee)" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -53,3 +71,143 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Employee Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Name</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [(ngModel)]="Employee.userName" name="userName" class="form-control disabled" id="userName">
+                  </div>
+                  <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [(ngModel)]="Employee.roles[0]" name="role" class="form-control disabled" id="role">
+                  </div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email address</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="email" [(ngModel)]="Employee.email" name="Email" class="form-control disabled" id="Email" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="Phonenumber" class="form-label">Phonenumber</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [(ngModel)]="Employee.phoneNumber" name="Phonenumber" class="form-control disabled" id="Phonenumber">
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input aria-label="Disabled input example" disabled="" readonly="" type="text" [(ngModel)]="Employee.salary" name="salary" class="form-control disabled" id="salary">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" >Edit Employee</button>
+          <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-labelledby="exampleModalToggleLabel2" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Edit Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Name</label>
+                    <input type="text" [(ngModel)]="Employee.userName" name="userName" class="form-control" id="userName">
+                </div>
+                <div class="mb-3">
+                  <label for="role" class="form-label">Role</label>
+                  <input type="text" [(ngModel)]="Employee.roles[0]" name="role" class="form-control" id="role">
+              </div>
+                <div class="mb-3">
+                  <label for="Email" class="form-label">Email address</label>
+                  <input type="email" [(ngModel)]="Employee.email" name="Email" class="form-control" id="Email" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="Role" class="form-label">Role</label>
+                  <select class="form-select" [(ngModel)]="Employee.roles[0]" name="Role">
+                    <option selected disabled>Roles</option>
+                    <ng-container *ngFor="let role of Roles">
+                      <option value="{{role}}">{{role}}</option>
+                    </ng-container>
+                  </select>
+                  </div>
+                <div class="mb-3">
+                    <label for="Phonenumber" class="form-label">Phonenumber</label>
+                    <input type="text" [(ngModel)]="Employee.phoneNumber" name="Phonenumber" class="form-control" id="Phonenumber">
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" [(ngModel)]="Employee.salary" name="salary" class="form-control" id="salary">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" (click)="onPatchEmployee(Employee)" data-bs-dismiss="modal" aria-label="Close">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="AddEmployeeModal" aria-labelledby="AddEmployeeModal" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="AddEmployeeModallabel">Add Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="firstname" class="form-label">First Name</label>
+                <input aria-label="input example"  type="text" [(ngModel)]="registerEmployee.firstName" name="Firstname" class="form-control " id="userName">
+              </div>
+              <div class="mb-3">
+                <label for="Lastname" class="form-label">Last Name</label>
+                <input aria-label="input example"  type="text" [(ngModel)]="registerEmployee.lastName" name="Lastname" class="form-control " id="Email" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+              <label for="Email" class="form-label">Email address</label>
+              <input aria-label="input example"  type="email" [(ngModel)]="registerEmployee.email" name="Email" class="form-control " id="Email" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+              <label for="Password" class="form-label">Password</label>
+              <input aria-label="input example" type="password" [(ngModel)]="registerEmployee.password" name="Password" class="form-control " id="Email" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phonenumber</label>
+              <input aria-label="input example" type="text" [(ngModel)]="registerEmployee.phone" name="phoneNumber" class="form-control " id="Email" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="BranchId" class="form-label">Branch</label>
+                <input aria-label="input example" type="text" [(ngModel)]="registerEmployee.branchId" name="BranchId" class="form-control " id="Phonenumber">
+              </div>
+              <div class="mb-3">
+                <label for="Role" class="form-label">Role</label>
+                <select class="form-select" [(ngModel)]="registerEmployee.roles[0]" name="Role">
+                  <option selected disabled>Roles</option>
+                  <ng-container *ngFor="let role of Roles">
+                    <option value="{{role}}">{{role}}</option>
+                  </ng-container>
+                </select>
+                </div>
+              <div class="mb-3">
+                <label for="Salary" class="form-label">Salary</label>
+                <input aria-label="input example" type="text" [(ngModel)]="registerEmployee.salary" name="Salary" class="form-control " id="salary">
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" (click)="onRegisterEmployee(registerEmployee)" data-bs-dismiss="modal" aria-label="Close">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

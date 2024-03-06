@@ -36,7 +36,7 @@
                                <b>{{branch.name}}</b> 
                             </div>
                             <div class="col-3">
-                                {{branch.manager.userName}}
+                                {{branch.manager.userName.replace(".", " ")}}
                             </div>
                             <div class="col-3">
                                 {{branch.manager.email}}
@@ -49,7 +49,7 @@
                             </div>
                             <div class="col">
                                 <a routerLink="/Branches">
-                                    <i class="fa-solid fa-info fa-sm"></i>
+                                    <i class="fa-solid fa-circle-info fa"></i>
                                 </a>
                             </div>
                         </div>
@@ -87,10 +87,10 @@
                     </div>
                   </div>
                 <div class="card-body d-flex flex-nowrap overflow-auto">
-                    <div *ngFor="let employee of Employees | filter: searchEmployee" class="card-text">
+                    <div *ngFor="let employee of Employees | filteremployee: searchEmployee" class="card-text">
                         <div class="row">
                             <div class="col-3">
-                               <b>{{employee.userName}}</b> 
+                               <b>{{employee.userName.replace(".", " ")}}</b> 
                             </div>
                             <div class="col-3">
                                Manager
@@ -106,7 +106,7 @@
                             </div>
                             <div class="col">
                                 <a routerLink="/Employees">
-                                    <i class="fa-solid fa-info fa-sm"></i>
+                                    <i class="fa-solid fa-circle-info fa"></i>
                                 </a>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                                     <img src="../../assets/Images/DefaultUserImage.png" alt="userImage" id="userImage">
                                 </div>
                                 <div class="col-8">
-                                    <b>{{es.employee.userName}}</b>
+                                    <b>{{es.employee.userName.replace(".", " ")}}</b>
                                 </div>
                             </div>
                             <ng-container *ngFor="let shift of es.shifts">

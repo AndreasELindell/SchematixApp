@@ -4,6 +4,6 @@ export interface Branch{
     id: number,
     name: string,
     managerId: string,
-    manager: Employee,
+    manager?: Employee,
     employees: Employee[]
 }
