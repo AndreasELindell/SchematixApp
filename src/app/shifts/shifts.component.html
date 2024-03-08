@@ -6,10 +6,10 @@
             </h4>
             <div class="row justify-content-between">
                 <div class="col-2">
-                    <select class="form-select" [ngModel]="FilteredBranch">
-                        <option *ngFor="let branch of Branches" [ngValue]=branch>{{branch.name}}</option>
+                    <select class="form-select" [(ngModel)]="FilteredBranch">
+                        <option selected *ngFor="let branch of Branches" [ngValue]="branch">{{branch.name}}</option>
                     </select>
-                    <button class="btn newbuttonclass"> 
+                    <button class="btn newbuttonclass" (click)="getFilterBranch(Week, FilteredBranch)"> 
                         Search
                     </button>
                 </div>
@@ -143,7 +143,7 @@
                                 <div *ngIf="shift?.date == WeekDates[4]; else elseBlock4" class="col">
                                     <div class="shiftblock">
                                         <div class="shiftblocktop">
-                                            {{shift.start.slice(0,-3)}} - {{shift.end.slice(0,-3)}}
+                                            {{shift.start}} - {{shift.end}}
                                         </div>
                                         <div *ngFor="let task of shift.tasks" class="shiftblockbody">
                                             {{task.type}}: {{task.start.slice(0,-3)}} - {{task.end.slice(0,-3)}}
@@ -194,7 +194,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="AddShiftModal" aria-labelledby="AddShiftModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -203,10 +202,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="Date">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field style="width: 25%;">
+                    <mat-label>Start</mat-label>
+                    <input type="time" [(ngModel)]="Start" matInput >
+                </mat-form-field>
+                <mat-form-field style="width: 25%;">
+                    <mat-label>End</mat-label>
+                    <input type="time" [(ngModel)]="End" matInput >
+                </mat-form-field>
             </div>
             <div class="modal-footer">
-                <button class="btn newbuttonclass" >
+                <button class="btn newbuttonclass" (click)="test()">
                     Save Changes
                 </button>
             </div>

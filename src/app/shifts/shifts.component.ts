@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Branch } from 'src/Models/Branch';
-import { Employee } from 'src/Models/Employee';
 import { EmployeeWithShifts } from 'src/Models/EmployeeWithShifts';
 import { ApiService } from '../services/api.service';
 import { Shift } from 'src/Models/Shift';
+import {NativeDateAdapter} from '@angular/material/core';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-shifts',
   templateUrl: './shifts.component.html',
-  styleUrls: ['./shifts.component.css']
+  styleUrls: ['./shifts.component.css'],
+  providers: [NativeDateAdapter]
 })
 export class ShiftsComponent implements OnInit{
 
@@ -20,6 +22,10 @@ export class ShiftsComponent implements OnInit{
   WeekDates: any;
   show = false;
   NewShift!: Shift;
+  Date!: Date;
+  Start!:Time;
+  End!:Time;
+  Length!: any;
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -33,16 +39,33 @@ export class ShiftsComponent implements OnInit{
       }, 1000)
     });
     this.WeekDates = this.getDatesFromWeek(this.Week, this.Year)
-   
+  }
+
+  test(): void{
+    
+
+
+    console.log(typeof this.Start)
   }
 
   changeWeek(number: number){
     this.show = false
     this.Week += number;
-    this.apiService.GetEmployeesWithShifts(this.Week).subscribe({
-      next: (r) => this.EmployeeWithShifts = r,
-      error: (e) => console.log(e)
-    });
+    console.log(this.FilteredBranch)
+    if(this.FilteredBranch?.id > 0)
+    {
+      this.apiService.GetShiftsForBranch(this.Week, this.FilteredBranch).subscribe({
+        next: (r) => this.EmployeeWithShifts = r,
+        error: (e) => console.log(e)
+  
+      })
+    }
+    else{
+      this.apiService.GetEmployeesWithShifts(this.Week).subscribe({
+        next: (r) => this.EmployeeWithShifts = r,
+        error: (e) => console.log(e)
+      });
+    }
     this.WeekDates = this.getDatesFromWeek(this.Week, this.Year)
     setTimeout(() => {
       this.show = true;
@@ -56,9 +79,17 @@ export class ShiftsComponent implements OnInit{
       error: (e) => console.log(e)
     })
   }
-  getFilterBranch(): void 
+  getFilterBranch(week:number, branch: Branch): void 
   {
-    this.apiService.
+    this.show = false
+    this.apiService.GetShiftsForBranch(week, branch).subscribe({
+      next: (r) => this.EmployeeWithShifts = r,
+      error: (e) => console.log(e),
+      complete: () =>  setTimeout(() => {
+        this.show = true;
+      }, 1000)
+
+    })
   }
   getWeekNumber(date: Date): number {
     date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));

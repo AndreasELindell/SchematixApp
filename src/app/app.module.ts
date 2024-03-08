@@ -15,6 +15,11 @@ import { EmployeesComponent } from './employees/employees.component';
 import { FilterPipe } from './Pipe/filter.pipe';
 import { FilterEmployeePipe } from './Pipe/filteremployee.pipe';
 import { TestdashComponent } from './testdash/testdash.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { TestdashComponent } from './testdash/testdash.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
