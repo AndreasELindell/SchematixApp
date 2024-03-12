@@ -26,6 +26,10 @@ export class ApiService {
   {
     return this.http.get<Branch[]>(this.baseUrl + "/Branch");
   }
+  GetBranchEmployees(branch: Branch): Observable<Employee[]>
+  {
+    return this.http.get<Employee[]>(this.baseUrl + `/User/Branch/${branch.id}`)
+  }
   GetBranchesWithoutEmployees():  Observable<Branch[]>
   {
     return this.http.get<Branch[]>(this.baseUrl + "/Branch/noEmp");
@@ -97,6 +101,14 @@ export class ApiService {
   }
   AddShiftToEmployee(shift: Shift): Observable<Shift>
   {
-    return this.http.post<Shift>(this.baseUrl + `/shifts`, shift)
+    return this.http.post<Shift>(this.baseUrl + `/shift`, shift)
+  }
+  UpdateShift(shift: Shift): Observable<Shift>
+  {
+    return this.http.put<Shift>(this.baseUrl + "/shift", shift)
+  }
+  DeleteShiftFromEmployee(shiftId: number): Observable<Shift>
+  {
+    return this.http.delete<Shift>(this.baseUrl + `/shift/${shiftId}`);
   }
 }

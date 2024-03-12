@@ -11,5 +11,6 @@ export interface Shift{
     branch: Branch,
     employee: Employee,
     date: string,
+    type: string,
     tasks: WorkTask[]
 }

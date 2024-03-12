@@ -6,10 +6,11 @@
             </h4>
             <div class="row justify-content-between">
                 <div class="col-2">
-                    <select class="form-select" [(ngModel)]="FilteredBranch">
-                        <option selected *ngFor="let branch of Branches" [ngValue]="branch">{{branch.name}}</option>
+                    <select id="branchSelector" class="form-select" [(ngModel)]="FilteredBranch">
+                        <option *ngFor="let branch of Branches" [ngValue]="branch">{{branch.name}}
+                        </option>
                     </select>
-                    <button class="btn newbuttonclass" (click)="getFilterBranch(Week, FilteredBranch)"> 
+                    <button class="btn newbuttonclass" (click)="getFilterBranch(Week, FilteredBranch!)"> 
                         Search
                     </button>
                 </div>
@@ -79,112 +80,20 @@
                                     <b>{{es.employee.userName}}</b>
                                 </div>
                             </div>
-                            <ng-container *ngFor="let shift of es.shifts">
-                                <div *ngIf="shift.date == WeekDates[0]; else elseBlock" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-                                            {{shift.start}} {{shift.end}}
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
+                            <ng-container *ngFor="let date of WeekDates">
+                                <div *ngIf="isMatchingDate(es.shifts, date)"  class="col">
+                                  <div class="shiftblock" (click)="showShift(es.shifts, date)" data-bs-target="#UpdateShiftModal" data-bs-toggle="modal">
+                                    <div class="shiftblocktop">
+                                      {{MatchingDate(es.shifts, date)?.start?.slice(0,-3)}} - {{MatchingDate(es.shifts, date)?.end?.slice(0,-3)}}
                                     </div>
+                                    <div class="shiftblockbody">
+                                      <p *ngFor="let task of MatchingDate(es.shifts, date)?.tasks">{{task.type}}: {{task.start.slice(0,-3)}} - {{task.end.slice(0,-3)}}</p>
+                                    </div>
+                                  </div>
                                 </div>
-                                <ng-template #elseBlock>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift.date == WeekDates[1]; else elseBlock1" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-    
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
-                                    </div>
+                                <div *ngIf="!isMatchingDate(es.shifts, date)" class="col" data-bs-target="#AddShiftModal" data-bs-toggle="modal" > 
+                                <b>No Shift</b> 
                                 </div>
-                                <ng-template #elseBlock1>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift.date == WeekDates[2]; else elseBlock2" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-    
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #elseBlock2>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift.date == WeekDates[3]; else elseBlock3" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-                                            hmm
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #elseBlock3>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift?.date == WeekDates[4]; else elseBlock4" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-                                            {{shift.start}} - {{shift.end}}
-                                        </div>
-                                        <div *ngFor="let task of shift.tasks" class="shiftblockbody">
-                                            {{task.type}}: {{task.start.slice(0,-3)}} - {{task.end.slice(0,-3)}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #elseBlock4>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift.date == WeekDates[5]; else elseBlock5" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-    
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #elseBlock5>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="shift.date == WeekDates[6]; else elseBlock6" class="col">
-                                    <div class="shiftblock">
-                                        <div class="shiftblocktop">
-    
-                                        </div>
-                                        <div class="shiftblockbody">
-                                            yo
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #elseBlock6>
-                                    <div class="col">
-                                        <b>No Shift</b> 
-                                    </div>
-                                </ng-template>
                             </ng-container>
                         </div>
                     </div>
@@ -202,11 +111,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <mat-form-field >
+                    <mat-label>Branch</mat-label>
+                    <mat-select [(ngModel)]="FilteredBranch" matNativeControl>
+                        <ng-container *ngFor="let branch of Branches">
+                            <mat-option [value]="branch">{{branch.name}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
                 <mat-form-field>
                     <mat-label>Choose a date</mat-label>
                     <input matInput [matDatepicker]="picker" [(ngModel)]="Date">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-label>Type Of Shift</mat-label>
+                    <mat-select [(ngModel)]="ShiftType" matNativeControl>
+                        <mat-option *ngFor="let type of ShiftTypes" [value]="type">
+                            {{type}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field style="width: 25%;">
                     <mat-label>Start</mat-label>
@@ -216,10 +142,100 @@
                     <mat-label>End</mat-label>
                     <input type="time" [(ngModel)]="End" matInput >
                 </mat-form-field>
+                <mat-form-field *ngIf="FilteredBranch != null">
+                    <mat-label>Employee</mat-label>
+                    <mat-select [(ngModel)]="NewShiftEmployee" matNativeControl>
+                        <mat-option *ngFor="let employee of FilteredBranch?.employees" [value]="employee">
+                            {{employee?.userName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="modal-footer">
-                <button class="btn newbuttonclass" (click)="test()">
+                <button *ngIf="FilteredBranch != null" data-bs-dismiss="modal" aria-label="Close" class="btn newbuttonclass" (click)="addShift()">
                     Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="UpdateShiftModal" aria-labelledby="UpdateShiftModallabel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Update Shift</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <mat-form-field >
+                    <mat-label>Branch</mat-label>
+                    <mat-select [(ngModel)]="FilteredBranch">
+                        <mat-option *ngFor="let branch of Branches" [value]="branch">{{branch.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker2" [(ngModel)]="Date">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Type Of Shift</mat-label>
+                    <mat-select [(ngModel)]="ShiftType" matNativeControl>
+                        <mat-option *ngFor="let type of ShiftTypes" [value]="type">
+                            {{type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="width: 25%;">
+                    <mat-label>Start</mat-label>
+                    <input type="time" [(ngModel)]="Start" matInput >
+                </mat-form-field>
+                <mat-form-field style="width: 25%;">
+                    <mat-label>End</mat-label>
+                    <input type="time" [(ngModel)]="End" matInput >
+                </mat-form-field>
+                <mat-form-field *ngIf="FilteredBranch != null">
+                    <mat-label>Employee</mat-label>
+                    <mat-select [(ngModel)]="NewShiftEmployee" matNativeControl>
+                        <mat-option *ngIf="NewShiftEmployee != null" selected [value]="NewShiftEmployee">{{NewShiftEmployee?.userName}}</mat-option>
+                        <mat-option *ngFor="let employee of FilteredBranch?.employees! | filterBranch: NewShiftEmployee?.id" [value]="employee">
+                            {{employee?.userName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngFor="let task of Tasks">
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Type Of Task</mat-label>
+                        <mat-select [(ngModel)]="task.type" matNativeControl>
+                            <mat-option *ngFor="let type of TaskTypes" [value]="type">
+                                {{type}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width: 25%;">
+                        <mat-label>Start</mat-label>
+                        <input type="time" [(ngModel)]="task.start" matInput >
+                    </mat-form-field>
+                    <mat-form-field style="width: 25%;">
+                        <mat-label>End</mat-label>
+                        <input type="time" [(ngModel)]="task.end" matInput >
+                    </mat-form-field>
+                    <button class="btn btn-close" (click)="removeTask(task)">
+                        
+                    </button>
+                </div>
+                <button class="btn newbuttonclass" (click)="addTasktoList()">
+                    Add Task
+                </button>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button *ngIf="FilteredBranch != null" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger" (click)="deleteShift()">
+                    Delete Shift
+                </button>
+                <button *ngIf="FilteredBranch != null" data-bs-dismiss="modal" aria-label="Close" class="btn newbuttonclass" (click)="updateShift()">
+                    Update Shift
                 </button>
             </div>
         </div>

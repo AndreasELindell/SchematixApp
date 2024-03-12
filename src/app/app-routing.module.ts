@@ -4,7 +4,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { BranchesComponent } from './branches/branches.component';
 import { EmployeesComponent } from './employees/employees.component';
-import { TestdashComponent } from './testdash/testdash.component';
 
 const routes: Routes = [
   {path: 'Dashboard', component: DashboardComponent},

@@ -14,13 +14,17 @@ import { BranchesComponent } from './branches/branches.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { FilterPipe } from './Pipe/filter.pipe';
 import { FilterEmployeePipe } from './Pipe/filteremployee.pipe';
-import { TestdashComponent } from './testdash/testdash.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatSelectModule} from '@angular/material/select';
+import { MatDialogModule} from '@angular/material/dialog';
+import {filterBranchPipe} from 'src/app/Pipe/filterBranch.pipe'
+import { FilterShiftTypePipe } from './Pipe/filterShiftType.pipe';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     EmployeesComponent,
     FilterPipe,
     FilterEmployeePipe,
-    TestdashComponent
+    filterBranchPipe,
+    FilterShiftTypePipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
