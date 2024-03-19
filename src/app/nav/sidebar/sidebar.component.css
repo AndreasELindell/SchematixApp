@@ -71,13 +71,18 @@ i{
 .profileInfo{
     width: auto;
     flex-direction: column;
+    margin-top: 1rem;
+    font-size: large;
+    font-weight: 100;
+    color: white;
 }
 .ProfileLogout{
     margin-top: 10%;
 }
 #logout{
+    background-color: var(--green);
     border-radius: 10px;
-
+    align-items: center;
     padding: 1rem;
     padding-right: 5rem;
 }

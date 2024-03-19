@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -25,6 +25,10 @@ import {filterBranchPipe} from 'src/app/Pipe/filterBranch.pipe'
 import { FilterShiftTypePipe } from './Pipe/filterShiftType.pipe';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,8 @@ import { RouterModule } from '@angular/router';
     FilterPipe,
     FilterEmployeePipe,
     filterBranchPipe,
-    FilterShiftTypePipe
+    FilterShiftTypePipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -53,9 +58,16 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    MatButtonModule, 
+    MatIconModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

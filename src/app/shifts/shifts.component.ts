@@ -136,7 +136,6 @@ export class ShiftsComponent implements OnInit{
         task.end = `${task.end}:00`;
       }
     });
-
     this.NewShift = {
       id: this.shiftId,
       start:  `${this.Start}`,
@@ -148,6 +147,7 @@ export class ShiftsComponent implements OnInit{
       date: `${this.Date.getFullYear()}-${(this.Date.getMonth() +1).toString().padStart(2, '0')}-${this.Date.getDate().toString().padStart(2, '0')}`,
       tasks: []
     }
+    console.log(this.NewShift)
     this.apiService.AddShiftToEmployee(this.NewShift).subscribe({
       next: (r) => console.log(r),
       error: (e) => console.log(e),
@@ -170,7 +170,21 @@ export class ShiftsComponent implements OnInit{
     this.Tasks = shift!.tasks;
     
   }
+  showNewShift(shifts: Shift[], date: string): void {
+    var shift = shifts.find(shift => shift.date === date);
 
+    this.ShiftType = shift!.type;
+    this.shiftId = shift?.id!
+    this.Start = "";
+    this.End = "";
+    this.NewShiftEmployee = shift?.employee!
+    this.FilteredBranch = this.Branches.find(b => b.id === shift?.branch.id)!;
+    this.FilteredBranch.employees.filter(e => e.id !== shift?.employee.id)
+    let [year, month, day] = date.split("-").map(Number);
+    this.Date = new Date(year, month -1, day);
+    this.Tasks = shift!.tasks;
+    
+  }
   updateShift(): void {
     let start: Time = {
       hours: parseInt(this.Start.substring(0, this.Start.indexOf(":"))),

@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="loginPanel">
+        <img src="../../../assets/Images/SchematixLogo.png" alt="logoImg" id="logoImg">
+        <form class="form" [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
+            <h1>Login</h1>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Enter your email</mat-label>
+                    <input matInput placeholder="pat@example.com" formControlName="email" required>
+                    <mat-error>{{"Email is Required"}}</mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                
+            </div>
+            
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+</div>

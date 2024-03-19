@@ -3,6 +3,8 @@ import { ApiService } from '../services/api.service';
 import { Employee } from 'src/Models/Employee';
 import { Branch } from 'src/Models/Branch';
 import { EmployeeWithShifts } from 'src/Models/EmployeeWithShifts';
+import { Shift } from 'src/Models/Shift';
+import { WorkTask } from 'src/Models/WorkTask';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +13,7 @@ import { EmployeeWithShifts } from 'src/Models/EmployeeWithShifts';
 })
 export class DashboardComponent implements OnInit{
 
+  happenings: WorkTask[] = [];
   searchBranch: string = "";
   searchEmployee: string = "";
   Week!: number;
@@ -78,6 +81,17 @@ export class DashboardComponent implements OnInit{
     }
 
     return dates;
+  }
+  isMatchingDate(shifts: Shift[], date: string): boolean {
+    return shifts.some(shift => date === shift.date);
+  }
+
+  MatchingDate(shifts: Shift[], date: string): Shift | undefined {
+    return shifts.find(shift => shift.date === date);
+  }
+  getHappnings(): void
+  {
+    
   }
 }
 

@@ -23,17 +23,16 @@
     <div class="profile">
         <div class="row"> 
             <div class="col">
-                <img src="../../../assets/Images/Andreas Lindell2.jpg" class="profileImage">
+                <img src="../../../assets/Images/DefaultUserImage.png" class="profileImage">
             </div>
         </div>
         <div class="row" class="profileInfo">
-            <div Id="profileName"><b>Name</b></div>
-            <div Id="profileRole">Role</div>
+            <div Id="profileName"><b>{{name}}</b></div>
         </div>
         <div class="row" class="ProfileLogout">
-            <a href="#" class="D-flex" id="logout">
+            <button class="d-flex btn" id="logout" (click)="onLogout()">
                 <i class="fa-solid fa-right-from-bracket fa-rotate-180"></i><span>Logout</span>
-            </a>
+            </button>
         </div>
     </div>
 </div>

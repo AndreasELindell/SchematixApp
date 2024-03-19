@@ -91,7 +91,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div *ngIf="!isMatchingDate(es.shifts, date)" class="col" data-bs-target="#AddShiftModal" data-bs-toggle="modal" > 
+                                <div *ngIf="!isMatchingDate(es.shifts, date)" (click)="showNewShift(es.shifts, date)" class="col" data-bs-target="#AddShiftModal" data-bs-toggle="modal" > 
                                 <b>No Shift</b> 
                                 </div>
                             </ng-container>

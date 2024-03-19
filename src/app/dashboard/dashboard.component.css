@@ -64,7 +64,7 @@ a{
 }
 
 .card-body{
-    max-height: 10rem;
+    max-height: 13rem;
     padding: 0;
     color: #6bb1dd;
     flex-direction: column;
@@ -83,7 +83,7 @@ button{
     color: white;
 }
 #shifts{
-    min-height: 16rem;
+    min-height: 25rem;
 }
 #userImage{
     height: 3rem;
@@ -124,9 +124,6 @@ button{
     justify-content: center;
     min-height: 3rem;
     border-right: 1px solid lightgray;
-}
-#happenings{
-    max-height: 7rem;
 }
 .shifts > .col{
     min-width: 10rem;
